@@ -170,4 +170,38 @@ void Pila::imprimir(void)
 
 ////////////////////////////////////////////////////////////////////////
 // Name:       Pila::buscar(int objetivo)
-// Purpose
+// Purpose:    Implementation of Pila::buscar()
+// Parameters:
+// - objetivo
+// Return:     bool
+////////////////////////////////////////////////////////////////////////
+
+bool Pila::buscar(int objetivo)
+{
+   if (estaVacia()) return false;
+
+   int valorCima = *(datos + cima);
+   if (valorCima == objetivo) return true;
+
+   cima--;
+   bool encontrado = buscar(objetivo);
+
+   cima++;
+   return encontrado;
+}
+
+////////////////////////////////////////////////////////////////////////
+// Name:       Pila::sumarElementos()
+// Purpose:    Implementation of Pila::sumarElementos()
+// Return:     int
+////////////////////////////////////////////////////////////////////////
+
+int Pila::sumarElementos(void)
+{
+   int suma = 0;
+   // Recorremos el arreglo desde la posicion 0 hasta la cima actual
+   for (int i = 0; i <= cima; i++) {
+       suma += *(datos + i); // Acceso a los datos mediante aritmética de punteros
+   }
+   return suma;
+}
