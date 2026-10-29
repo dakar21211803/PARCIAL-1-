@@ -2,6 +2,7 @@
 #define LISTADOBLECIRCULAR_H
 
 #include <iostream>
+#include <stdexcept> // Añadido para manejar excepciones de rango
 #include "Nodo.h"
 
 using namespace std;
@@ -21,6 +22,7 @@ public:
     Nodo<T>* buscar(T dato);
     void eliminar(T dato);
     void imprimir();
+    T obtenerEnPosicion(int pos); // Declaracion de la nueva funcion
 
 private:
     Nodo<T>* cabeza;
@@ -187,6 +189,26 @@ void ListaDobleCircular<T>::imprimir()
     } while (actual != cabeza);
 
     cout << endl;
+}
+
+// Implementacion de la nueva funcion
+template <typename T>
+T ListaDobleCircular<T>::obtenerEnPosicion(int pos)
+{
+    if (pos < 0 || pos >= tamanio)
+    {
+        throw out_of_range("Error: Posicion fuera de rango.");
+    }
+
+    Nodo<T>* actual = cabeza;
+    
+    // Recorremos la lista hasta llegar al indice deseado
+    for (int i = 0; i < pos; i++)
+    {
+        actual = actual->getSiguiente();
+    }
+
+    return actual->getDato();
 }
 
 #endif
